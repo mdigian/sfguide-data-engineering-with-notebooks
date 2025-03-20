@@ -29,13 +29,13 @@ jobs:
 
       - name: Deploy notebooks
         env:
-          SF_ACCOUNT:   ${{ secrets.SNOWFLAKE_ACCOUNT   }}
-          SF_USER:      ${{ secrets.SNOWFLAKE_USER      }}
-          SF_PASSWORD:  ${{ secrets.SNOWFLAKE_PASSWORD  }} # SnowCLI uses $SNOWFLAKE_PASSWORD directly
-          SF_ROLE:      ${{ secrets.SNOWFLAKE_ROLE      }}
-          SF_WH:        ${{ secrets.SNOWFLAKE_WAREHOUSE }}
-          SF_DB:        ${{ secrets.SNOWFLAKE_DATABASE  }}
-          SF_SCHEMA:    ${{ secrets.SNOWFLAKE_SCHEMA    }}
+          SF_ACCOUNT:          ${{ secrets.SNOWFLAKE_ACCOUNT   }}
+          SF_USER:             ${{ secrets.SNOWFLAKE_USER      }}
+          SNOWFLAKE_PASSWORD:  ${{ secrets.SNOWFLAKE_PASSWORD  }} # SnowCLI uses $SNOWFLAKE_PASSWORD directly
+          SF_ROLE:             ${{ secrets.SNOWFLAKE_ROLE      }}
+          SF_WH:               ${{ secrets.SNOWFLAKE_WAREHOUSE }}
+          SF_DB:               ${{ secrets.SNOWFLAKE_DATABASE  }}
+          SF_SCHEMA:           ${{ secrets.SNOWFLAKE_SCHEMA    }}
         run: |
           snow sql -q "ALTER GIT REPOSITORY DEMO_GIT_REPO FETCH"                                                                                 --temporary-connection --account $SF_ACCOUNT --user $SF_USER --role $SF_ROLE --warehouse $SF_WH --database $SF_DB --schema $SF_SCHEMA
           snow sql -q "EXECUTE IMMEDIATE FROM @DEMO_GIT_REPO/branches/main/scripts/deploy_notebooks.sql USING (env => 'PROD', branch => 'main')" --temporary-connection --account $SF_ACCOUNT --user $SF_USER --role $SF_ROLE --warehouse $SF_WH --database $SF_DB --schema $SF_SCHEMA
