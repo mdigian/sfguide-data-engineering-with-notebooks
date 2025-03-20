@@ -36,7 +36,7 @@ jobs:
           SF_DB:        ${{ secrets.SNOWFLAKE_DATABASE  }}
           SF_SCHEMA:    ${{ secrets.SNOWFLAKE_SCHEMA    }}
         run: |
-          snow sql -q "ALTER GIT REPOSITORY DEMO_GIT_REPO FETCH"                                                                                 --temporary-connection --account $SF_ACCOUNT --user $SF_USER --role $SF_ROLE --warehouse $SF_WH --database $SF_DB --schema $SD_SCHEMA
+          snow sql -q "ALTER GIT REPOSITORY DEMO_GIT_REPO FETCH"                                                                                 --temporary-connection --account $SF_ACCOUNT --user $SF_USER --role $SF_ROLE --warehouse $SF_WH --database $SF_DB --schema $SF_SCHEMA
           snow sql -q "EXECUTE IMMEDIATE FROM @DEMO_GIT_REPO/branches/main/scripts/deploy_notebooks.sql USING (env => 'PROD', branch => 'main')" --temporary-connection --account $SF_ACCOUNT --user $SF_USER --role $SF_ROLE --warehouse $SF_WH --database $SF_DB --schema $SF_SCHEMA
 
           : # Ideally Snow CLI and Python Connector are configured from env vars
