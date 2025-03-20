@@ -1,4 +1,5 @@
-# GITHUB_WORKSPACE and SNOWFLAKE_ env vars must be set.  SnowCLI uses $SNOWFLAKE_PASSWORD
+# GITHUB_WORKSPACE and SNOWFLAKE_ env vars must be set.  
+# SnowCLI uses $SNOWFLAKE_PASSWORD directly
 # https://github.com/mdigian/sfguide-data-engineering-with-notebooks/settings/secrets/actions
 name: Deploy Demo Objects
 
@@ -30,7 +31,7 @@ jobs:
         env:
           SF_ACCOUNT:   ${{ secrets.SNOWFLAKE_ACCOUNT   }}
           SF_USER:      ${{ secrets.SNOWFLAKE_USER      }}
-          SF_PWD:       ${{ secrets.SNOWFLAKE_PASSWORD  }}
+          SF_PASSWORD:  ${{ secrets.SNOWFLAKE_PASSWORD  }} # SnowCLI uses $SNOWFLAKE_PASSWORD directly
           SF_ROLE:      ${{ secrets.SNOWFLAKE_ROLE      }}
           SF_WH:        ${{ secrets.SNOWFLAKE_WAREHOUSE }}
           SF_DB:        ${{ secrets.SNOWFLAKE_DATABASE  }}
